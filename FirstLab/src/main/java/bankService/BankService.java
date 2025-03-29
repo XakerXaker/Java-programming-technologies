@@ -65,8 +65,11 @@ public class BankService
 	
 	public long CheckBalance()
 	{
-		Operation operation = new Operation(OperationType.CHECK_BALANCE, user.id);
-		operations.SaveOperation(operation);
+		if (user != null)
+		{
+			Operation operation = new Operation(OperationType.CHECK_BALANCE, user.id);
+			operations.SaveOperation(operation);
+		}
 		
 		return accounts.CheckBalance(user);
 	}

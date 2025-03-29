@@ -33,7 +33,11 @@ public class AccountRepository implements IAccountRepository
 	
 	public void WithdrawMoney(User targetUser, long amount)
 	{
+		if (targetUser == null)
+			throw new NoSuchElementException("You cannot check balance your account if you are not logged in");
+		
 		User user = FindUser(targetUser);
+		
 		if (user == null)
 			throw new NoSuchElementException("You cannot withdraw money from your account if you are not logged in");
 		
@@ -45,6 +49,9 @@ public class AccountRepository implements IAccountRepository
 	
 	public void DepositMoney(User targetUser, long amount)
 	{
+		if (targetUser == null)
+			throw new NoSuchElementException("You cannot check balance your account if you are not logged in");
+		
 		User user = FindUser(targetUser);
 		if (user == null)
 			throw new NoSuchElementException("You cannot deposit money from your account if you are not logged in");
@@ -54,7 +61,11 @@ public class AccountRepository implements IAccountRepository
 	
 	public long CheckBalance(User targetUser)
 	{
+		if (targetUser == null)
+			throw new NoSuchElementException("You cannot check balance your account if you are not logged in");
+		
 		User user = FindUser(targetUser);
+		
 		if (user == null)
 			throw new NoSuchElementException("You cannot check balance your account if you are not logged in");
 		
