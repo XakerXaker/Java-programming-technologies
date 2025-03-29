@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"bankService"},{"l":"consoleInterface"},{"l":"dto"},{"l":"entry"},{"l":"repositories"}];updateSearchResults();

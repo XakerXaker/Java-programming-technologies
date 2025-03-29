@@ -1,0 +1,10 @@
+repositories\AccountRepository.class
+dto\OperationType.class
+dto\User.class
+entry\Main.class
+repositories\IOperationHistoryRepository.class
+repositories\IAccountRepository.class
+dto\Operation.class
+repositories\OperationHistoryRepository.class
+consoleInterface\ConsoleInterface.class
+bankService\BankService.class

@@ -1,0 +1,52 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+--release
+17
+-sourcepath
+'C:/Users/Lenovo/eclipse-workspace/FirstLab/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/Lenovo/eclipse-workspace/FirstLab/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'FirstLab 0.0.1-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'FirstLab 0.0.1-SNAPSHOT API'
+bankService
+consoleInterface
+dto
+entry
+repositories
+C:\Users\Lenovo\eclipse-workspace\FirstLab\src\main\java = 1743178111231
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\allclasses-index.html = 1743196046213
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\allpackages-index.html = 1743196046217
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\copy.svg = 1743196046260
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\element-list = 1743196046046
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\help-doc.html = 1743196046253
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\index-all.html = 1743196046242
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\index.html = 1743196046194
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\link.svg = 1743196046263
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\member-search-index.js = 1743196046222
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\module-search-index.js = 1743196046219
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\overview-summary.html = 1743196046248
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\overview-tree.html = 1743196046187
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\package-search-index.js = 1743196046220
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\script.js = 1743196046258
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\search-page.js = 1743196046269
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\search.html = 1743196046244
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\search.js = 1743196046266
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\stylesheet.css = 1743196046256
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\tag-search-index.js = 1743196046223
+C:\Users\Lenovo\eclipse-workspace\FirstLab\target\reports\apidocs\type-search-index.js = 1743196046221
