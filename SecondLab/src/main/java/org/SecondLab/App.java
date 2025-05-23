@@ -18,5 +18,6 @@ public class App
 			PetController petController = new PetController(emf, ownerController.owner);
 			petController.start();
 		}
+		System.out.print("Finished!");
 	}
 }
