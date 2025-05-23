@@ -2,8 +2,6 @@ package org.SecondLab;
 
 import Controller.OwnerController;
 import Controller.PetController;
-import OrmModel.Owner;
-import Repositories.OwnerRepository;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
