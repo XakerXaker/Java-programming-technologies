@@ -1,0 +1,35 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemalocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+    <persistence-unit name="myunit">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <class>OrmModel.Pet</class>
+        <class>OrmModel.Owner</class>
+      
+  
+        <properties>
+            <!-- Здесь в качестве примера СУБД PostgreSQL и база данных с именем cats, находящаяся на localhost -->
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres" />
+            <property name="hibernate.connection.username" value="postgres" />
+            <property name="hibernate.connection.password" value="dfght55!L" />
+      
+             <!-- SQL logging settings -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            
+            <!-- Log SQL parameters -->
+            <property name="hibernate.type.descriptor.sql" value="trace"/>
+            
+            <!-- Print statistics -->
+            <property name="hibernate.generate_statistics" value="true"/>
+            <property name="hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS" value="1"/>
+         
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+            <!-- Настройка миграции -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+    </persistence-unit>
+</persistence>
