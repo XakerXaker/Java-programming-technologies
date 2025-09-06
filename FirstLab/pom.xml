@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>com.XakerXaker.JavaLabs</groupId>
+    <artifactId>JavaLabs</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
 
   <groupId>XakerXaker</groupId>
   <artifactId>FirstLab</artifactId>
@@ -10,6 +16,7 @@
   <name>FirstLab</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
+
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
