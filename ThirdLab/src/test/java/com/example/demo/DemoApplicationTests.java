@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.Controllers.OwnerController;
 import com.example.DTO.OwnerDTO;
 import com.example.Services.OwnerService;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -34,11 +34,15 @@ class OwnerControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private OwnerService ownerService;
 
     private OwnerDTO testOwnerDto;
     private List<OwnerDTO> testOwners;
+
 
     @BeforeEach
     void setUp() {
@@ -54,7 +58,7 @@ class OwnerControllerTest {
     void getOwnerById_WhenExists_ShouldReturnOwner() throws Exception {
         when(ownerService.getOwnerById(1L)).thenReturn(Optional.of(testOwnerDto));
 
-        mockMvc.perform(get("/api/owners/1"))
+        mockMvc.perform(get("/api/owners/get/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
@@ -83,8 +87,9 @@ class OwnerControllerTest {
         createdOwnerDto.setBirthDate(LocalDate.of(1995, 5, 5));
 
         when(ownerService.createOwner(any(OwnerDTO.class))).thenReturn(createdOwnerDto);
-
+        
         mockMvc.perform(post("/api/owners/create")
+                        .content(objectMapper.writeValueAsString(createdOwnerDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2))

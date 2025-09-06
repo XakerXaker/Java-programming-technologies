@@ -46,6 +46,10 @@ public class Owner {
     	name = newName;
     }
     
+    public void setPets(List<Pet> newPets)
+    {
+        pets = newPets;
+    }
     public List<Pet> getPets() {
     	return pets;
     }

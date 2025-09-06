@@ -23,7 +23,22 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("get")
+    public ResponseEntity<List<OwnerDTO>> getAllOwners() {
+        List<OwnerDTO> owners = ownerService.getAllOwners();
+        return ResponseEntity.ok(owners);
+    }
+
+    @GetMapping("get/paginated")
+    public ResponseEntity<Page<OwnerDTO>> getAllOwnersPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        Page<OwnerDTO> owners = ownerService.getAllOwnersPaginated(page, size, sortBy);
+        return ResponseEntity.ok(owners);
+    }
+
+    @GetMapping("get/{id}")
     public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id) {
         Optional<OwnerDTO> owner = ownerService.getOwnerById(id);
         return owner.map(ResponseEntity::ok)
@@ -32,13 +47,13 @@ public class OwnerController {
 
     
     @PostMapping("create")
-    public ResponseEntity<OwnerDTO> createOwner(OwnerDTO ownerDto) {
+    public ResponseEntity<OwnerDTO> createOwner(@RequestBody OwnerDTO ownerDto) {
         OwnerDTO createdOwner = ownerService.createOwner(ownerDto);
         return ResponseEntity.ok(createdOwner);
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<OwnerDTO> updateOwner(@PathVariable Long id, OwnerDTO ownerDto) {
+    public ResponseEntity<OwnerDTO> updateOwner(@PathVariable Long id, @RequestBody OwnerDTO ownerDto) {
         Optional<OwnerDTO> updatedOwner = ownerService.updateOwner(id, ownerDto);
         return updatedOwner.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -51,9 +66,9 @@ public class OwnerController {
     }
 
     @GetMapping("search/name")
-    public List<OwnerDTO> findByName(@RequestParam("Name") String name) {
+    public ResponseEntity<List<OwnerDTO>> findByName(@RequestParam String name) {
         List<OwnerDTO> owners = ownerService.getOwnerByName(name);
-        return owners;
+        return ResponseEntity.ok(owners);
     }
 
     @GetMapping("search/name/paginated")
