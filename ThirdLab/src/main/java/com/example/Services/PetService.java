@@ -49,6 +49,18 @@ public class PetService {
                 .map(PetDTO::fromEntity);
     }
 
+    public void addBothFriends(Long id1, Long id2) {
+        Pet pet1 = petRepository.findById(id1).get();
+        Pet pet2 = petRepository.findById(id2).get();
+        
+        //дружба в обе стороны
+        pet1.addFriend(pet2);
+
+        petRepository.save(pet1);
+        petRepository.save(pet2);
+    }
+
+
     public PetDTO createPet(PetDTO petDto) {
         Pet pet = new Pet();
         pet.setName(petDto.getName());

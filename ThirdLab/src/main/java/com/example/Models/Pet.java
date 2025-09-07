@@ -37,6 +37,11 @@ public class Pet {
     )
     private List<Pet> friends = new ArrayList<>();
 
+    public void addFriend(Pet pet) {
+        friends.add(pet);
+        pet.addFriend(this);
+    }
+
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;

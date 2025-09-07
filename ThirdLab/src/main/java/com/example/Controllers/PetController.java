@@ -24,6 +24,11 @@ public class PetController {
         this.petService = petService;
     }
 
+    @PostMapping("/addFriend")
+    public void addFriend(@RequestParam Long id1, @RequestParam Long id2) {
+        petService.addBothFriends(id1, id2);
+    }
+
     @GetMapping("get")
     public ResponseEntity<List<PetDTO>> getAllPets() {
         List<PetDTO> pets = petService.getAllPets();
