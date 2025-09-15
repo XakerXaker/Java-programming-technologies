@@ -39,7 +39,7 @@ public class MicroserviceCommunicationService {
         request.setOperation("getOwnerById");
 
         Object response = rabbitTemplate.convertSendAndReceive("owner.exchange", "owner.request", request);
-        return objectMapper.convertValue(response, OwnerDTO.class);
+        return (OwnerDTO) response;
     }
 
     public OwnerDTO createOwner(OwnerDTO ownerDto) {

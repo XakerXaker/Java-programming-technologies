@@ -16,6 +16,6 @@ public class OwnerDTO {
     private Long id;
     private String name;
     private LocalDate birthDate;
-    private List<PetDTO> pets;
+    private List<Long> pets;
 }
 

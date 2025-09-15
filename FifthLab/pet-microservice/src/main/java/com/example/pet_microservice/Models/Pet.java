@@ -27,6 +27,7 @@ public class Pet {
     private String name;
     private LocalDate birthDate;
     private String breed;
+    
     private Long ownerId; 
 
     @Enumerated(EnumType.STRING)
