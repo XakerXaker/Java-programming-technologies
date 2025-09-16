@@ -32,7 +32,7 @@ public class OwnerController {
     @GetMapping("get/{id}")
     public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id) {
         OwnerDTO owner = microserviceService.getOwnerById(id);
-        return owner != null ? ResponseEntity.ok(owner) : ResponseEntity.notFound().build();
+        return owner != null ? ResponseEntity.ok(owner) : ResponseEntity.noContent().build();
     }
 
     @PostMapping("create")

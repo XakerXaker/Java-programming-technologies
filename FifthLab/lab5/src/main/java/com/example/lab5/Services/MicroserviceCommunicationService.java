@@ -5,19 +5,16 @@ import com.example.lab5.DTO.OwnerDTO;
 import com.example.lab5.DTO.OwnerRequest;
 import com.example.lab5.DTO.PetDTO;
 import com.example.lab5.DTO.PetRequest;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class MicroserviceCommunicationService {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -27,8 +24,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("getAllOwners");
 
-        Object response = rabbitTemplate.convertSendAndReceive("owner.exchange", "owner.request", request);
-        return objectMapper.convertValue(response, new TypeReference<List<OwnerDTO>>(){});
+        List<OwnerDTO> response = rabbitTemplate.convertSendAndReceiveAsType("owner.exchange", "owner.request", request, new ParameterizedTypeReference<List<OwnerDTO>>() {
+        });
+        return response;
     }
 
 
@@ -38,8 +36,9 @@ public class MicroserviceCommunicationService {
 
         request.setOperation("getOwnerById");
 
-        Object response = rabbitTemplate.convertSendAndReceive("owner.exchange", "owner.request", request);
-        return (OwnerDTO) response;
+        OwnerDTO response = rabbitTemplate.convertSendAndReceiveAsType("owner.exchange", "owner.request", request, new ParameterizedTypeReference<OwnerDTO>() {     
+        });
+        return response;
     }
 
     public OwnerDTO createOwner(OwnerDTO ownerDto) {
@@ -50,8 +49,9 @@ public class MicroserviceCommunicationService {
         
         request.setOperation("createOwner");
 
-        Object response = rabbitTemplate.convertSendAndReceive("owner.exchange", "owner.request", request);
-        return objectMapper.convertValue(response, OwnerDTO.class);
+        OwnerDTO response = rabbitTemplate.convertSendAndReceiveAsType("owner.exchange", "owner.request", request, new ParameterizedTypeReference<OwnerDTO>() {    
+        });
+        return response;
     }
 
     public OwnerDTO updateOwner(Long id, OwnerDTO ownerDto) {
@@ -61,8 +61,9 @@ public class MicroserviceCommunicationService {
         
         request.setOperation("updateOwner");
 
-        Object response = rabbitTemplate.convertSendAndReceive("owner.exchange", "owner.request", request);
-        return objectMapper.convertValue(response, OwnerDTO.class);
+        OwnerDTO response = rabbitTemplate.convertSendAndReceiveAsType("owner.exchange", "owner.request", request, new ParameterizedTypeReference<OwnerDTO>() {
+        });
+        return response;
     }
 
     public boolean deleteOwner(Long id) {
@@ -72,7 +73,7 @@ public class MicroserviceCommunicationService {
         request.setOperation("deleteOwner");
 
         Object response = rabbitTemplate.convertSendAndReceive("owner.exchange", "owner.request", request);
-        return objectMapper.convertValue(response, boolean.class);
+        return (boolean) response;
     }
 
     public List<OwnerDTO> findOwnerByName(String name) {
@@ -81,8 +82,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("findByName");
 
-        Object response = rabbitTemplate.convertSendAndReceive("owner.exchange", "owner.request", request);
-        return objectMapper.convertValue(response, new TypeReference<List<OwnerDTO>>(){});
+        List<OwnerDTO> response = rabbitTemplate.convertSendAndReceiveAsType("owner.exchange", "owner.request", request, new ParameterizedTypeReference<List<OwnerDTO>>() {
+        });
+        return response;
     }
 
 
@@ -91,8 +93,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("getAllPets");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, new TypeReference<List<PetDTO>>(){});
+        List<PetDTO> response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<List<PetDTO>>() {
+        });
+        return response;
     }
 
     public PetDTO getPetById(Long id) {
@@ -101,8 +104,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("getPetById");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, PetDTO.class);
+        PetDTO response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<PetDTO>() {
+        });
+        return response;
     }
 
     public PetDTO createPet(PetDTO petDto) {
@@ -110,12 +114,13 @@ public class MicroserviceCommunicationService {
         request.setName(petDto.getName());
         request.setBreed(petDto.getBreed());
         request.setColor(petDto.getColor());
-        request.setOwnerId(petDto.getOwner());
+        request.setOwnerId(petDto.getOwnerId());
 
         request.setOperation("createPet");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, PetDTO.class);
+        PetDTO response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<PetDTO>() {
+        });
+        return response;
     }
 
     public PetDTO updatePet(Long id, PetDTO petDto) {
@@ -123,12 +128,13 @@ public class MicroserviceCommunicationService {
         request.setName(petDto.getName());
         request.setBreed(petDto.getBreed());
         request.setColor(petDto.getColor());
-        request.setOwnerId(petDto.getOwner());
+        request.setOwnerId(petDto.getOwnerId());
 
         request.setOperation("updatePet");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, PetDTO.class);
+        PetDTO response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<PetDTO>() {
+        });
+        return response;
     }
 
     public boolean deletePet(Long id) {
@@ -137,7 +143,7 @@ public class MicroserviceCommunicationService {
         request.setOperation("deletePet");
 
         Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, boolean.class);
+        return (boolean) response;
     }
 
     public List<PetDTO> findPetByName(String name) {
@@ -146,8 +152,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("findByName");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, new TypeReference<List<PetDTO>>(){});
+        List<PetDTO> response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<List<PetDTO>>() {
+        });
+        return response;
     }
 
     public List<PetDTO> findPetByBreed(String breed) {
@@ -156,8 +163,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("findByBreed");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, new TypeReference<List<PetDTO>>(){});
+        List<PetDTO> response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<List<PetDTO>>() {
+        });
+        return response;
     }
 
 
@@ -167,8 +175,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("findByColor");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, new TypeReference<List<PetDTO>>(){});
+        List<PetDTO> response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<List<PetDTO>>() {
+        });
+        return response;
     }
 
     public List<PetDTO> findPetByOwnerId(Long ownerId) {
@@ -177,8 +186,9 @@ public class MicroserviceCommunicationService {
     
         request.setOperation("findByOwnerId");
 
-        Object response = rabbitTemplate.convertSendAndReceive("pet.exchange", "pet.request", request);
-        return objectMapper.convertValue(response, new TypeReference<List<PetDTO>>(){});
+        List<PetDTO> response = rabbitTemplate.convertSendAndReceiveAsType("pet.exchange", "pet.request", request, new ParameterizedTypeReference<List<PetDTO>>() {
+        });
+        return response;
     }
 
     public void addPetFriends(Long id1, Long id2) {

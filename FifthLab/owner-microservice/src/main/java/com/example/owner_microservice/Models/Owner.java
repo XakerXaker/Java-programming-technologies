@@ -1,10 +1,12 @@
 package com.example.owner_microservice.Models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +24,7 @@ public class Owner {
     private String name;
     private LocalDate birthDate;
 
-    @ElementCollection
-    private List<Long> petsId;
     
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<Long> petsId = new ArrayList<>();
 }

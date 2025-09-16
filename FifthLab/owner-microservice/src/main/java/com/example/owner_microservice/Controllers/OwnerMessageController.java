@@ -4,7 +4,6 @@ import com.example.owner_microservice.DTO.OwnerDTO;
 import com.example.owner_microservice.DTO.OwnerRequest;
 import com.example.owner_microservice.Services.OwnerService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,23 +14,22 @@ public class OwnerMessageController {
     @Autowired
     private OwnerService ownerService;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
     @RabbitListener(queues = "owner.request.queue")
-    public void handleOwnerRequest(OwnerRequest request) {
+    public Object handleOwnerRequest(OwnerRequest request) {
         try {
             Object response = processRequest(request);
-            rabbitTemplate.convertAndSend("owner.exchange", "owner.response", response);
+            return response;
         } catch (Exception e) {
-            rabbitTemplate.convertAndSend("owner.exchange", "owner.response", "Error: " + e.getMessage());
+           return null;
         }
     }
 
     private Object processRequest(OwnerRequest request) {
         switch (request.getOperation()) {
             case "getAllOwners":
-                return ownerService.getAllOwners();
+                if (!ownerService.getAllOwners().isEmpty())
+                    return ownerService.getAllOwners();
+                return null;
             
             case "getAllOwnersPaginated":
                 return ownerService.getAllOwnersPaginated(
@@ -41,7 +39,9 @@ public class OwnerMessageController {
                 );
             
             case "getOwnerById":
-                return ownerService.getOwnerById(request.getId());
+                if (ownerService.getOwnerById(request.getId()).isPresent())
+                    return ownerService.getOwnerById(request.getId());
+                return null;
             
             case "createOwner":
                 OwnerDTO ownerDto = new OwnerDTO();

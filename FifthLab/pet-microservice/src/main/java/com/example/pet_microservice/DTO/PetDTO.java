@@ -1,6 +1,7 @@
 package com.example.pet_microservice.DTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class PetDTO {
 
     private Long ownerId;
 
-    private List<PetDTO> friends;
+    private List<PetDTO> friends = new ArrayList<>();
 
 
     public static PetDTO fromEntity(Pet pet) {

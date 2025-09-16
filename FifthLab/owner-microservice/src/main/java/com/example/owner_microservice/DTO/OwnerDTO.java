@@ -1,6 +1,7 @@
 package com.example.owner_microservice.DTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.owner_microservice.Models.Owner;
@@ -18,7 +19,7 @@ public class OwnerDTO {
     private Long id;
     private String name;
     private LocalDate birthDate;
-    private List<Long> pets;
+    private List<Long> pets = new ArrayList<>();
 
     public static OwnerDTO fromEntity(Owner owner) {
         OwnerDTO dto = new OwnerDTO();

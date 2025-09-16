@@ -4,44 +4,34 @@ import com.example.pet_microservice.DTO.PetDTO;
 import com.example.pet_microservice.DTO.PetRequest;
 import com.example.pet_microservice.Services.PetService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class PetMessageController {
-
     @Autowired
     private PetService petService;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
     @RabbitListener(queues = "pet.request.queue")
-    public void handlePetRequest(PetRequest request) {
+    public Object handlePetRequest(PetRequest request) {
         try {
             Object response = processRequest(request);
-            rabbitTemplate.convertAndSend("pet.exchange", "pet.response", response);
+            return response;
         } catch (Exception e) {
-            rabbitTemplate.convertAndSend("pet.exchange", "pet.response", "Error: " + e.getMessage());
+            return null;
         }
     }
 
     private Object processRequest(PetRequest request) {
         switch (request.getOperation()) {
             case "getAllPets":
+                if (petService.getAllPets().isEmpty())
+                    return null;
                 return petService.getAllPets();
             
-            case "getAllPetsPaginated":
-                return petService.getAllPetsPaginated(
-                    request.getPage(), 
-                    request.getSize(), 
-                    request.getSortBy() != null ? request.getSortBy() : "id"
-                );
-            
             case "getPetById":
-                return petService.getPetById(request.getId());
+                return petService.getPetById(request.getId()).orElse(null);
             
             case "createPet":
                 PetDTO petDto = new PetDTO();
@@ -57,30 +47,30 @@ public class PetMessageController {
                 updateDto.setBreed(request.getBreed());
                 updateDto.setColor(request.getColor());
                 updateDto.setOwnerId(request.getOwnerId());
-                return petService.updatePet(request.getId(), updateDto);
+                return petService.updatePet(request.getId(), updateDto).orElse(null);
             
             case "deletePet":
                 return petService.deletePet(request.getId());
             
             case "findByName":
+                if (petService.findByName(request.getName()).isEmpty())
+                    return null;
                 return petService.findByName(request.getName());
-            
-            case "findByNamePaginated":
-                return petService.findByNamePaginated(request.getName(), request.getPage(), request.getSize());
+        
             
             case "findByBreed":
+                if (petService.findByBreed(request.getBreed()).isEmpty())
+                    return null;
                 return petService.findByBreed(request.getBreed());
             
-            case "findByBreedPaginated":
-                return petService.findByBreedPaginated(request.getBreed(), request.getPage(), request.getSize());
-            
             case "findByColor":
+                if (petService.findByColor(request.getColor()).isEmpty())
+                    return null;
                 return petService.findByColor(request.getColor());
             
-            case "findByColorPaginated":
-                return petService.findByColorPaginated(request.getColor(), request.getPage(), request.getSize());
-            
             case "findByOwnerId":
+                if (petService.findByOwnerId(request.getOwnerId()).isEmpty())
+                    return null;
                 return petService.findByOwnerId(request.getOwnerId());
             
             case "addFriend":

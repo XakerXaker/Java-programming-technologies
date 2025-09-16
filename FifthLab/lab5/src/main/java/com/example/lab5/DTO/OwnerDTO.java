@@ -1,6 +1,7 @@
 package com.example.lab5.DTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +17,6 @@ public class OwnerDTO {
     private Long id;
     private String name;
     private LocalDate birthDate;
-    private List<Long> pets;
+    private List<Long> pets = new ArrayList<>();
 }
 
